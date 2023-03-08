@@ -1,8 +1,10 @@
+/*
+
 //Rutas de Tasks
 import { Router } from "express"; //Traigo solo la funcion Router
 const router = Router();
-import TaskModel from "../models/Task";
-import TaskController from "../controllers/taskController";
+import CuotaModel from "../models/Cuota";
+import TaskController from "../controllers/SocioController";
 
 // Listar tareas
 router.get("/", TaskController.findAllTasks);
@@ -26,3 +28,5 @@ router.delete("/:id", TaskController.deleteTask);
 router.put("/:id", TaskController.updateTask);
 
 export default router;
+
+*/

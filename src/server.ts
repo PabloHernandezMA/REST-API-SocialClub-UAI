@@ -4,7 +4,7 @@ const app = express();
 import morgan from "morgan";
 import configDataBase from "./config";
 import database from "./database";
-import taskRoutes from "./routes/task.routes";
+import appRoutes from "./routes/index.routes";
 
 //Settings
 app.set("port", configDataBase.PORT); //Se configura el puerto. Si hay una variable de entorno definida como PORT toma de alli el valor. sino toma 3000
@@ -16,7 +16,7 @@ app.use(express.json()); //Permite procesar paquetes json
 app.use(morgan("dev"));
 
 //Routes
-app.use("/api/task", taskRoutes);
+app.use("/api", appRoutes);
 app.all("*", (req, res) => {
   res.status(404).send("<h1>404! Page not found</h1>");
 });
