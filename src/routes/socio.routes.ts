@@ -1,4 +1,4 @@
-//Rutas de Tasks
+//Rutas de Socios
 import { Router } from "express"; //Traigo solo la funcion Router
 const router = Router();
 import SocioModel from "../models/Socio";

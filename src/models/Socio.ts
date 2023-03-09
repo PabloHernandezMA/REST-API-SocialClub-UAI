@@ -1,11 +1,9 @@
-import { Schema, model, SchemaTypeOptions } from 'mongoose';
-
-export type TipoDocumento = 'DNI' | 'CUIT'
+import { Schema, model } from 'mongoose';
 
 interface ISocio{
   nombre: string,
   apellido: string,
-  tipoDoc: TipoDocumento,
+  tipoDoc: string,
   numeroDoc: number,
   telefono: number
 }

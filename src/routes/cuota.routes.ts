@@ -1,32 +1,31 @@
-/*
-
-//Rutas de Tasks
+//Rutas de Cuotas
 import { Router } from "express"; //Traigo solo la funcion Router
 const router = Router();
 import CuotaModel from "../models/Cuota";
-import TaskController from "../controllers/SocioController";
+import TaskController from "../controllers/CuotaController";
 
-// Listar tareas
-router.get("/", TaskController.findAllTasks);
 
-// Listar tareas query params
-router.get("/params", TaskController.findTasks);
 
-// Agregar tarea
-router.post("/", TaskController.addTask);
 
-// Filtrar tareas completadas
-router.get("/done", TaskController.findAllDoneTasks);
+// Listar cuotas
+router.get("/", TaskController.findAllCuotas);
 
-// Filtrar tarea por ID
-router.get("/:id", TaskController.findTask);
+// Listar cuotas query params
+//router.get("/params", TaskController.findCuotaQuery);
 
-// Eliminar tarea
-router.delete("/:id", TaskController.deleteTask);
+// Agregar cuota
+router.post("/", TaskController.addCuota);
 
-// Actualizar tarea por ID
-router.put("/:id", TaskController.updateTask);
+// Filtrar cuotas pagas
+router.get("/pagas", TaskController.findAllCuotasPagas);
+
+// Filtrar cuota por ID
+router.get("/:id", TaskController.findCuotaByID);
+
+// Eliminar cuota
+router.delete("/:id", TaskController.deleteCuota);
+
+// Actualizar cuota por ID
+router.put("/:id", TaskController.updateCuota);
 
 export default router;
-
-*/
