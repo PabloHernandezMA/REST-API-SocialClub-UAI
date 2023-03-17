@@ -1,4 +1,6 @@
 import { Schema, model, Types } from 'mongoose';
+import Socio from "../models/Socio";
+
 
 interface ICuota{
   monto: number,
@@ -30,7 +32,8 @@ const cuotaSchema = new Schema(
       default: false
     },
     socio: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "Socio",
       require: true
     },
   },

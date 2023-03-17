@@ -28,4 +28,6 @@ router.delete("/:id", TaskController.deleteCuota);
 // Actualizar cuota por ID
 router.put("/:id", TaskController.updateCuota);
 
+//updateEstadoCuota
+router.put("/estado/:id", TaskController.updateEstadoCuota);
 export default router;

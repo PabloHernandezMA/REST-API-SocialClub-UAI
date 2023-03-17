@@ -31,9 +31,7 @@ database
 app.listen(app.get("port"), () => {
   console.log(
     "Escuchando en puerto:",
-    app.get("port"),
-    "URl:",
-    app.get("mongodbURL")
+    app.get("port")
   );
 });
 

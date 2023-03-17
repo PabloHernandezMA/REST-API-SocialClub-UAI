@@ -5,7 +5,8 @@ interface ISocio{
   apellido: string,
   tipoDoc: string,
   numeroDoc: number,
-  telefono: number
+  telefono: number,
+  email: string
 }
 
 const socioSchema = new Schema(
@@ -34,6 +35,11 @@ const socioSchema = new Schema(
     telefono: {
       type: Number,
       require: true
+    },
+    email: {
+      type: String, //Tipo string
+      require: true, //Campo obligatorio o requerido
+      strim: true //Elimina antes de guardar los espacios al principio y final del string
     }
   },
   {

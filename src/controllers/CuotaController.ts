@@ -4,7 +4,7 @@ import Socio from "../models/Socio";
 // Listar tareas
 const findAllCuotas = async (req: any, res: any) => {
   try {
-    const result = await Cuota.find();
+    const result = await Cuota.find().populate("socio");
     if (result.length == 0) {
       return res.status(404).json({ message: "No existen registros" })
     }
@@ -52,7 +52,7 @@ const findCuotaByID = async (req: any, res: any) => {
 // Filtrar cuotas en estado = true
 const findAllCuotasPagas = async (req: any, res: any) => {
   try {
-    const result = await Cuota.find({ estado: true });
+    const result = await Cuota.find({ estado: true }).populate("socio");
     res.status(200).json(result);
   } catch (error: any) {
     res.status(500).json({ message: error.message || "Something went wrong" });
@@ -77,7 +77,7 @@ const updateCuota = async (req: any, res: any) => {
   try {
     const result = await Cuota.findByIdAndUpdate(req.params.id, req.body);
     if (!result) {
-      return res.status(404).json({ message: `Task ${req.params.id} does not exist` })
+      return res.status(404).json({ message: `Cuota ${req.params.id} does not exist` })
     }
     res.status(200).send(`Cuota "${result._id}" actualizada`);
   } catch (error: any) {
@@ -85,7 +85,43 @@ const updateCuota = async (req: any, res: any) => {
   }
 };
 
-// Listar cuotas por query params ()
+// Actualizar estado cuota
+const updateEstadoCuota = async (req: any, res: any) => {
+  try {
+    const fechaActual = new Date()
+    const multa = 10;
+    const multar = await Cuota.findById(req.params.id)
+    if (!multar) {
+      return res.status(404).json({ message: `Cuota ${req.params.id} does not exist` })
+    }
+    console.log(multar.fechaVencimiento.valueOf());
+    console.log(multar.monto);
+
+    if (multar.fechaVencimiento.valueOf() < fechaActual.valueOf()) {
+      let sum = multar.monto
+      sum += sum * 0.1;
+      const result = await Cuota.findByIdAndUpdate(req.params.id, { monto: sum });
+      if (!result) {
+        return res.status(404).json({ message: `Cuota ${req.params.id} does not exist` })
+      }
+      res.status(200).send(`Monto cuota actualizado "${result._id}"`);
+    }
+    const result = await Cuota.findByIdAndUpdate(req.params.id, req.body.estado);
+    if (!result) {
+      return res.status(404).json({ message: `Cuota ${req.params.id} does not exist` })
+    }
+    if (req.body.estado) {
+      res.status(200).send(`Cuota "${result._id}" marcada como Paga`);
+    } else {
+      res.status(200).send(`Cuota "${result._id}" marcada como Adeudada`);
+    }
+
+  } catch (error: any) {
+    res.status(500).json({ message: error.message || "Something went wrong" });
+  }
+};
+
+/* Listar cuotas por query params ()
 
 const findCuotaQuery = async (req: any, res: any) => {
   try {
@@ -117,7 +153,7 @@ const findCuotaQuery = async (req: any, res: any) => {
     res.status(500).json({ message: error.message || "Something went wrong" });
   }
 };
-
+*/
 
 export default {
   findAllCuotas,
@@ -127,4 +163,5 @@ export default {
   addCuota,
   deleteCuota,
   updateCuota,
+  updateEstadoCuota
 };
